@@ -2,7 +2,7 @@
 let cursors;
 let config = {
     parent: 'myGame',
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     height: 640,
     width: 960,
     scale: {
@@ -18,7 +18,7 @@ let config = {
             }
         }
     },
-    scene: [ Load, Play, Title ]
+    scene: [ Load, Title, Play ]
 }
 
 // define game
