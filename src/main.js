@@ -3,8 +3,8 @@ let cursors;
 let config = {
     parent: 'myGame',
     type: Phaser.AUTO,
-    height: 640,
-    width: 960,
+    height: 500,
+    width: 640,
     scale: {
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
