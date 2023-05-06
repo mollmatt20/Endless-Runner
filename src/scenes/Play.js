@@ -61,13 +61,27 @@ class Play extends Phaser.Scene {
         this.time.delayedCall(2500, () => {
             this.makePlatform();
         })
-         
+        
+        this.difficultyTimer = this.time.addEvent({
+            delay: 1000,
+            callback: () => {
+            // Platform speed up for every 5 levels
+                level++;
+                if (level % 5) {
+                    this.platformSpeed -= 5;
+                }
+            },
+            callbackScope: this,
+            loop: true
+        });
+
         // set up cursor inputs
         cursors = this.input.keyboard.createCursorKeys();
     }
 
     makePlatform() {
-        let platform = new Platform(this, this.platformSpeed);
+        let platformHeight = Phaser.Math.Between(200, game.config.height - 50);
+        let platform = new Platform(this, platformHeight, this.platformSpeed);
         this.platformGroup.add(platform);
         this.physics.add.collider(this.player, platform);
     }
@@ -96,13 +110,4 @@ class Play extends Phaser.Scene {
 	    	this.player.body.setVelocityY(this.jumpVel);
 	    }
     }        
-
-    speedUp() {
-        // Platform speed up for every 5 levels
-        level++;
-
-        if (level % 5) {
-            this.platformSpeed -= 25;
-        }
-    }
 }

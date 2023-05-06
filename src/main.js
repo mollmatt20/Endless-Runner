@@ -22,6 +22,6 @@ let config = {
 }
 
 // global variables
-let level;
+let level = 0;
 // define game
 let game = new Phaser.Game(config);
