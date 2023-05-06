@@ -6,6 +6,7 @@ class Play extends Phaser.Scene {
     create() {
         // speed and world settings
         this.jumpVel = -700;
+        this.platformSpeed = -100;
         this.maxJumps = 1;
         this.physics.world.gravity.y = 1000;
 
@@ -44,7 +45,9 @@ class Play extends Phaser.Scene {
         });
 
         // set up platform
-        this.startPlatform = new Platform(this, 0, game.config.height);
+        this.startPlatform = new Platform(this);
+        this.startPlatform.x = 0;
+        this.startPlatform.y = game.config.height;
         this.startPlatform.setScale(3);
         this.startPlatform.setVelocityX(0);
 
@@ -55,7 +58,7 @@ class Play extends Phaser.Scene {
             runChildUpdate : true
         });
 
-        this.timeAddPlatform = this.time.delayedCall(2500, () => {
+        this.time.delayedCall(2500, () => {
             this.makePlatform();
         })
          
@@ -64,7 +67,7 @@ class Play extends Phaser.Scene {
     }
 
     makePlatform() {
-        let platform = new Platform(this, game.config.width + 35, Phaser.Math.Between(150, game.config.height - 16));
+        let platform = new Platform(this, this.platformSpeed);
         this.platformGroup.add(platform);
         this.physics.add.collider(this.player, platform);
     }
@@ -93,4 +96,13 @@ class Play extends Phaser.Scene {
 	    	this.player.body.setVelocityY(this.jumpVel);
 	    }
     }        
+
+    speedUp() {
+        // Platform speed up for every 5 levels
+        level++;
+
+        if (level % 5) {
+            this.platformSpeed -= 25;
+        }
+    }
 }

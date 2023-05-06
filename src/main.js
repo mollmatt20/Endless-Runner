@@ -21,5 +21,7 @@ let config = {
     scene: [ Load, Title, Play ]
 }
 
+// global variables
+let level;
 // define game
 let game = new Phaser.Game(config);
