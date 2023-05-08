@@ -9,10 +9,15 @@ class Play extends Phaser.Scene {
         this.platformSpeed = -100;
         this.maxJumps = 1;
         this.physics.world.gravity.y = 1000;
+        this.isJumping = false;
+        
+        //jared added this trash
+        this.jumpAdd = 0
 
         // set up player
         this.player = this.physics.add.sprite(0, game.config.height/2, 'platformer_atlas', 'front').setScale(0.5);
         this.player.setCollideWorldBounds(true);
+        this.player.setMaxVelocity(500, 5000);
 
         // set up player animation
         this.anims.create({
@@ -104,10 +109,29 @@ class Play extends Phaser.Scene {
         this.isGrounded = this.player.body.touching.down;
         if(!this.isGrounded) {
             this.player.anims.play('jump', true);
+            this.isJumping = true;
+        } else {
+            this.isJumping = false;
         }
 
-        if(this.isGrounded && Phaser.Input.Keyboard.JustDown(cursors.up)) {
+        /*if(!this.isJumping && Phaser.Input.Keyboard.DownDuration(cursors.up, 150)) {
 	    	this.player.body.setVelocityY(this.jumpVel);
-	    }
+            this.isJumping = true;
+	    }*/
+        if (!this.isJumping && Phaser.Input.Keyboard.DownDuration(cursors.up, 150))
+        {
+            this.player.body.setVelocityY(this.jumpVel)
+            this.isJumping = true
+        }
+        const maxAdd = -100
+        if (this.isJumping && Phaser.Input.Keyboard.DownDuration(cursors.up, 20))
+        {
+            this.jumpAdd -= 5
+            if (this.jumpAdd < maxAdd)
+                {
+                    console.log("test")
+                    this.player.body.setVelocityY(this.player.body.velocity.y -= 5)
+                }
+        }
     }        
 }
