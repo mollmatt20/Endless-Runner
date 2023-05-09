@@ -23,5 +23,6 @@ let config = {
 
 // global variables
 let level = 0;
+let keySPACE;
 // define game
 let game = new Phaser.Game(config);

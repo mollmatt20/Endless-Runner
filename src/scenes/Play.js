@@ -8,9 +8,9 @@ class Play extends Phaser.Scene {
         this.jumpVel = -700;
         this.platformSpeed = -100;
         this.maxJumps = 1;
-        this.physics.world.gravity.y = 1000;
+        this.physics.world.gravity.y = 3000;
         this.isJumping = false;
-        
+        this.maxJumps = 1;
         //jared added this trash
         this.jumpAdd = 0
 
@@ -112,26 +112,18 @@ class Play extends Phaser.Scene {
             this.isJumping = true;
         } else {
             this.isJumping = false;
+            this.numJumps = this.maxJumps;
+
         }
 
-        /*if(!this.isJumping && Phaser.Input.Keyboard.DownDuration(cursors.up, 150)) {
+        if(this.numJumps > 0 && Phaser.Input.Keyboard.DownDuration(cursors.up, 400)) {
 	    	this.player.body.setVelocityY(this.jumpVel);
             this.isJumping = true;
-	    }*/
-        if (!this.isJumping && Phaser.Input.Keyboard.DownDuration(cursors.up, 150))
-        {
-            this.player.body.setVelocityY(this.jumpVel)
-            this.isJumping = true
-        }
-        const maxAdd = -100
-        if (this.isJumping && Phaser.Input.Keyboard.DownDuration(cursors.up, 20))
-        {
-            this.jumpAdd -= 5
-            if (this.jumpAdd < maxAdd)
-                {
-                    console.log("test")
-                    this.player.body.setVelocityY(this.player.body.velocity.y -= 5)
-                }
+	    }
+
+        if(this.isJumping && Phaser.Input.Keyboard.UpDuration(cursors.up)) {
+            this.numJumps--;
+            this.isJumping = false;
         }
     }        
 }
