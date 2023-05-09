@@ -13,7 +13,6 @@ class Title extends Phaser.Scene {
         }
         this.add.text(130, 35, 'Endless Runner', menuConfig).setOrigin(0.5);
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        // pass to play scene
     }
 
     update() {

@@ -11,9 +11,10 @@ class Play extends Phaser.Scene {
         this.physics.world.gravity.y = 3000;
         this.isJumping = false;
         this.maxJumps = 1;
-        //jared added this trash
-        this.jumpAdd = 0
 
+        // score counter
+        this.score = 0
+        
         // set up player
         this.player = this.physics.add.sprite(0, game.config.height/2, 'platformer_atlas', 'front').setScale(0.5);
         this.player.setCollideWorldBounds(true);
@@ -40,7 +41,6 @@ class Play extends Phaser.Scene {
             ],
             repeat: -1
         });
-        // won't need this for now, but we're taking care of it for a future scene
         this.anims.create({
             key: 'jump',
             defaultTextureKey: 'platformer_atlas',
@@ -80,6 +80,18 @@ class Play extends Phaser.Scene {
             loop: true
         });
 
+        // set up scoreboard
+        this.scoreBoard = this.add.text(game.config.width - 100, 10, this.score);
+        this.scoring = this.time.addEvent({
+            delay: 1000,
+            callback: () => {
+                this.score += 1;
+                this.scoreBoard.text = this.score;
+            },
+            callbackScope: this,
+            loop: true
+        });
+
         // set up cursor inputs
         cursors = this.input.keyboard.createCursorKeys();
     }
@@ -106,6 +118,7 @@ class Play extends Phaser.Scene {
             this.player.anims.play('idle');
         }
 
+        //  set up varaible jump
         this.isGrounded = this.player.body.touching.down;
         if(!this.isGrounded) {
             this.player.anims.play('jump', true);
@@ -124,6 +137,15 @@ class Play extends Phaser.Scene {
         if(this.isJumping && Phaser.Input.Keyboard.UpDuration(cursors.up)) {
             this.numJumps--;
             this.isJumping = false;
+        }
+
+        if(this.score > highScore) {
+            highScore = this.score;
+        }
+        
+        // if player falls to the bottom screen, pass to game over screen
+        if(this.player.y == 477.5) {
+            this.scene.start('gameoverScene');
         }
     }        
 }

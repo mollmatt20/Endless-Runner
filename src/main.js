@@ -18,11 +18,12 @@ let config = {
             }
         }
     },
-    scene: [ Load, Title, Play ]
+    scene: [ Load, Title, Play, GameOver ]
 }
 
 // global variables
 let level = 0;
+let highScore = 0;
 let keySPACE;
 // define game
 let game = new Phaser.Game(config);
