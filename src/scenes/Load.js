@@ -7,8 +7,8 @@ class Load extends Phaser.Scene {
         // set load path
         this.load.path = './assets/';
         // load our assets
-        this.load.atlas('platformer_atlas', 'kenny_sheet.png', 'kenny_sheet.json');
-        this.load.image('platform', 'platform.png');
+        this.load.atlas('ER_atlas', 'ER_sheet.png', 'ER_sheet.json');
+        this.load.atlas('platform_atlas', 'platforms.png', 'platforms.json');
     }
 
     create() {

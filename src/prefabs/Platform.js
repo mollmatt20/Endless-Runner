@@ -1,6 +1,6 @@
 class Platform extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, height, velocity) {
-        super(scene, game.config.width + 35, height, 'platform');
+    constructor(scene, height, velocity, platform) {
+        super(scene, game.config.width + 35, height, 'platform_atlas', platform);
 
         this.parentScene = scene;
         this.parentScene.add.existing(this);
