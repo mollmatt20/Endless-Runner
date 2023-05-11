@@ -9,6 +9,8 @@ class Load extends Phaser.Scene {
         // load our assets
         this.load.atlas('ER_atlas', 'ER_sheet.png', 'ER_sheet.json');
         this.load.atlas('platform_atlas', 'platforms.png', 'platforms.json');
+        this.load.image('background', 'Test_background.png');
+        this.load.image('scroll', 'Scrolling_air.png');
     }
 
     create() {

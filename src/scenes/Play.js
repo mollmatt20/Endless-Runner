@@ -4,8 +4,11 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+        // add background
+        this.background = this.add.tileSprite(0, 0, 640, 500, 'background').setOrigin(0, 0);
+        this.scroll = this.add.tileSprite(0, 0, 640, 500, 'scroll').setOrigin(0, 0);
         // speed and world settings
-        this.jumpVel = -700;
+        this.jumpVel = -675;
         this.platformSpeed = -100;
         this.maxJumps = 1;
         this.physics.world.gravity.y = 3000;
@@ -70,7 +73,11 @@ class Play extends Phaser.Scene {
 
         this.time.delayedCall(2500, () => {
             this.makePlatform();
-        })
+        });
+
+        this.time.delayedCall(5000, () => {
+            this.startPlatform.destroy();
+        });
         
         this.difficultyTimer = this.time.addEvent({
             delay: 1000,
@@ -116,7 +123,6 @@ class Play extends Phaser.Scene {
         if(randoVal == 3) {
             platName = 'Platform_Pickle';
         }
-        console.log(platName);
         let platformHeight = Phaser.Math.Between(200, game.config.height - 50);
         let platform = new Platform(this, platformHeight, this.platformSpeed, platName);
         this.platformGroup.add(platform);
@@ -163,6 +169,9 @@ class Play extends Phaser.Scene {
             highScore = this.score;
         }
 
+        // air puffs scroll in background
+        this.scroll.tilePositionX += 4;
+        
         // if player falls to the bottom screen, pass to game over screen
         if(this.player.y == 477) {
             this.scene.start('gameoverScene');
