@@ -7,6 +7,10 @@ class Play extends Phaser.Scene {
         // add background
         this.background = this.add.tileSprite(0, 0, 640, 500, 'background').setOrigin(0, 0);
         this.scroll = this.add.tileSprite(0, 0, 640, 500, 'scroll').setOrigin(0, 0);
+        // add music
+        let music = this.sound.add('music_background');
+        music.setLoop('true');
+        music.play();
         // speed and world settings
         this.jumpVel = -675;
         this.platformSpeed = -100;
@@ -82,7 +86,7 @@ class Play extends Phaser.Scene {
         this.difficultyTimer = this.time.addEvent({
             delay: 1000,
             callback: () => {
-            // Platform speed up for every 5 levels
+            // Platform speed up for every 10 levels
                 level++;
                 if (level % 10) {
                     this.platformSpeed -= 5;
@@ -109,6 +113,7 @@ class Play extends Phaser.Scene {
     }
 
     makePlatform() {
+        // Randomize which platform to output whenever a platform is about to be made
         let randoVal = Phaser.Math.Between(0, 3);
         let platName;
         if(randoVal == 0) {
@@ -174,6 +179,7 @@ class Play extends Phaser.Scene {
         
         // if player falls to the bottom screen, pass to game over screen
         if(this.player.y == 477) {
+            this.game.sound.stopAll();
             this.scene.start('gameoverScene');
         }
     }        

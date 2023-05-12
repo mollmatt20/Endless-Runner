@@ -2,6 +2,7 @@ class Platform extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, height, velocity, platform) {
         super(scene, game.config.width + 35, height, 'platform_atlas', platform);
 
+        scene.add.existing(this);
         this.parentScene = scene;
         this.parentScene.add.existing(this);
         this.parentScene.physics.add.existing(this);
@@ -9,6 +10,7 @@ class Platform extends Phaser.Physics.Arcade.Sprite {
         this.setImmovable();
         this.body.allowGravity = false;
         this.newPlatform = true;
+        this.sfxChew = scene.sound.add('chew');
     }
 
     update() {
@@ -21,6 +23,7 @@ class Platform extends Phaser.Physics.Arcade.Sprite {
         // destroy platform if it reaches to left edge
         if(this.x < -this.width) {
             this.destroy();
+            this.sfxChew.play();
         }
     }
 }
