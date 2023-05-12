@@ -12,6 +12,7 @@
 // with music similar to 8-bit.
 //
 // Royalty-free music used: https://freesound.org/s/677187/
+// Royalty-free sound effect (chew): https://freesound.org/s/429597/
 
 
 // define and configure main Phaser game object
